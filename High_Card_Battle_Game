@@ -1,0 +1,83 @@
+import random
+
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+user_list = []
+comp_list = []
+
+user_score = 0
+comp_score = 0
+draw_score = 0
+
+def pick_cards(list,abc=1):
+  for i in range(abc):
+    list.append(random.choice(cards))
+
+rounds = 5
+
+def game():
+    
+  def battle(u_hit, c_hit):
+    global user_score
+    global comp_score
+    global draw_score
+    if u_hit == c_hit:
+      print("Draw! ⚔️")
+      draw_score+=1
+    elif u_hit > c_hit:
+      print("Win! ✅")
+      user_score+=1
+    elif u_hit < c_hit:
+      print("Lose! ❌")
+      comp_score+=1
+    print("\n")
+  
+  global user_list
+  global comp_list
+  
+
+  user_choice = None
+  
+  while not user_choice in user_list:
+    user_choice = int(input("Pick from your card list: "))
+
+  print(f"You chose: {user_choice}")
+  user_list.remove(user_choice)
+  
+  comp_choice = random.choice(comp_list)
+  print(f"Computer chose: {comp_choice}")
+  comp_list.remove(comp_choice)
+
+  battle(user_choice,comp_choice)
+
+def final_battle(u,c):
+    if u == c:
+      return "Draw 👾"
+    elif u > c:
+      return "Game Won! 🏆"
+    elif u < c:
+      return "Game Lose 😱"
+
+pick_cards(user_list,5)
+pick_cards(comp_list,5)
+
+while rounds != 0:
+  print(f"Your card stack: {user_list}")
+  print(
+        f"\n====================\n"
+        f"      Round {6-rounds}\n"
+        f"====================\n"
+  )
+  game()
+  rounds-=1
+
+  if rounds == 0:
+    print(
+      f"====================\n"
+      f"    FINAL RESULT    \n"
+      f"====================\n\n"
+      f"You: {user_score}\n"
+      f"Computer: {comp_score}\n"
+      )
+
+    print(final_battle(user_score,comp_score))
