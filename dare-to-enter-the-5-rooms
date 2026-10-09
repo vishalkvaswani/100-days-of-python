@@ -1,0 +1,223 @@
+import random
+
+logo = """
+⣴⢖⡶⣲⣶⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣶⣶⣿⢾⣒⣦⠀
+⣿⣿⡾⣫⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣨⣷⣌⠳⣝⣿⡄
+⣿⡿⣿⣿⣿⣻⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣟⣿⣿⣿⢾⣿⠆
+⠀⠀⠈⠹⣿⣿⣟⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⢷⣀⣀⣀⠀⢀⣀⣀⣶⣿⣿⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣻⣿⠟⠁⠀⠀⠀
+⠀⠀⠀⠀⠉⠿⣿⣿⣖⣻⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣯⣸⣿⡋⠉⠀⠈⠙⣯⣏⣏⢿⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣟⣿⢿⣿⡿⠉⠁⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠛⢿⣿⠶⢚⣻⣦⡀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⡷⠂⠀⠀⠰⣿⣿⣾⣮⢧⡀⠀⠀⠀⠀⠀⠀⣰⣟⡛⠻⢿⡿⠏⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠹⣿⣭⣭⣿⣿⣦⡀⠀⠀⣠⣾⣿⣿⡯⠄⠀⠀⠀⠀⠀⠀⠀⠀⠨⣿⣧⣙⣦⡀⠀⢀⣴⣿⣿⣿⢭⣽⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣟⣯⣭⣽⣽⣶⣾⡟⡿⠋⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⢻⡷⣿⣶⣮⣽⣯⣟⣻⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢷⣿⣿⣿⣿⡿⢷⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡷⢿⣿⢿⣿⣷⣶⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⠿⢿⣧⡀⠙⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠚⠀⣴⣿⠿⢷⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⣀⣀⠀⠀⣀⣠⣞⣷⡿⠿⠟⢦⠈⠳⣜⣢⡀⠙⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⣠⣞⠞⠁⣠⠾⠿⢿⣮⣳⢤⣀⠀⠀⣀⣀⡀⠀⠀⠀⠀
+⠀⠀⠀⢹⡿⣿⢖⣻⣽⣾⣿⡏⠀⠀⠀⠈⠳⣄⠈⠳⣝⢄⠈⠳⣄⠀⠀⠀⠀⠀⢀⡼⠃⢀⣞⠷⠉⢀⡞⠁⠀⠀⠀⠸⣿⣷⣾⢭⣓⣿⣿⣿⠀⠀⠀⠀
+⠀⠀⠀⠘⢓⣿⣶⣾⣿⠁⠈⠀⠀⠀⠀⠀⠀⠈⢳⡄⠈⠶⡳⡄⠈⢳⡄⠀⠀⣴⠋⢀⣴⡿⠋⢀⡴⠋⠀⠀⠀⠀⠀⠀⠉⠘⢻⣷⣮⣿⣟⠉⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⡿⠀⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢦⡀⠙⢮⠣⡄⠙⣦⠚⠀⣴⣿⠋⠀⣠⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠁⠘⡿⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢦⡀⠑⣬⠞⠁⣠⣞⠟⠁⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⡶⠋⢀⢴⠵⠁⣠⣞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⠋⢀⡴⡛⠉⢀⡴⠋⠘⢧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠀⡰⠋⠂⢀⣴⣏⠈⢢⣣⡀⠙⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠁⣠⡞⠂⠀⣠⠞⠀⠙⢦⡀⠙⢭⣂⠀⠳⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡰⠋⢀⢔⠗⠁⣠⠞⠁⠀⠀⠀⠀⠙⢦⡀⠑⣗⣄⠈⢧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⢀⣴⠛⠁⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠙⢦⡀⠛⠳⡀⠙⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠁⡀⠂⠀⢠⡾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠈⠺⣂⠈⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⣄⠀⠣⣀⠙⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⠁⠀⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⣄⠈⠠⠀⠹⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠋⠀⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⣄⠀⠀⠈⢣⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢀⡞⠁⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⣄⠀⠀⠹⣆⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣰⠋⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⣌⠀⠈⢳⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⡼⠁⣠⠞⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠱⢄⡀⠳⡄⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⣾⡵⠚⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠦⣿⣄⠀⠀⠀⠀
+⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"""
+
+room_list = ["Goblin","Orc","Dragon","Gold Room","Healing room"]
+
+print(logo)
+
+player_hp = 100
+potions = 3
+
+def select_room(room_random_def):
+    if room_random_def == 0:
+        return "Goblin", 40, (5, 12)
+    elif room_random_def == 1:
+        return "Orc", 70, (8, 16)
+    elif room_random_def == 2:
+        return "Dragon", 100, (12, 22)
+    return None
+
+
+def user_choice(room):
+    if room == 0 or room == 1 or room == 2:
+        return input(
+            "\nChoose your next action.\n1. Attack\n2. Use Potion\n3. Run Away\n4. Buy Potions\n\nYou chose: ")
+
+
+
+
+def user_attack(monster, monster_health):
+    print("You have chosen to attack!\n")
+
+    double_damage = random.randint(1,5)
+
+    if double_damage == 1:
+        print(f"\nYou have got a ⚔️ Double Damage Bonus.\n")
+        player_attack = 2 * random.randint(10, 20)
+        print(f"Player attacks {monster} for double {player_attack} damage.")
+        monster_health = monster_health - player_attack
+        if monster_health < 0:
+            monster_health = 0
+        print(
+            f"\nPlayer Attack: {player_attack}"
+            f"\n{monster_name} HP: {monster_health}"
+
+        )
+        return player_attack
+    else:
+        player_attack = random.randint(10, 20)
+        print(f"Player attacks {monster} for {player_attack} damage.")
+        monster_health = monster_health - player_attack
+        if monster_health < 0:
+            monster_health = 0
+        print(
+            f"\nPlayer Attack: {player_attack}"
+            f"\n{monster_name} HP: {monster_health}"
+
+        )
+        return player_attack
+
+
+def monster_attacks(name, monster_fight, player_health, room):
+    if room < 3:
+        monster_doing = random.randint(*monster_fight)
+        print(f"\n{name} has attacked you for {monster_doing} damage.")
+        player_health -= monster_doing
+        print(f"Player HP: {player_health}")
+
+        return monster_doing
+    else:
+        monster_doing = 1.25 * random.randint(*monster_fight)
+        print(f"\n{name} has attacked you for {monster_doing} damage.")
+        player_health -= monster_doing
+        print(f"Player HP: {player_health}")
+
+        return monster_doing
+
+
+room_crossed = 1
+gold = 0
+room_visited =[]
+
+print("------------Welcome to the Dungeon of Death------------\n\n"
+      "Dare to enter the living hell on EARTH.\n"
+      "You might finally find the Treasure or perish like others before you.\n"
+      "The choice is yous.")
+
+while player_hp > 0 and room_crossed != 6:
+    room_enter = ""
+
+    while room_enter != "yes":
+        room_enter = input(f"Ready to enter room {room_crossed}. Type 'Yes' to enter: ").lower()
+
+
+    room_random = random.randint(0, 4)
+    room_visited.append(room_random)
+    print(f"\n====Room {room_crossed}=====\n"
+        f"\n➡️ Player HP: {player_hp}\n➡️ Potions Remaining: {potions}\n➡️ Gold Value: {gold}")
+    if room_random == 0 or room_random == 1 or room_random == 2:
+        monster_name, monster_hp, monster_damage = select_room(room_random)
+
+        print(f"\nYou have a {monster_name} in the room!")
+        while monster_hp > 0 and player_hp > 0:
+            print(
+                f"\n------------------------"
+                f"\nPlayer HP: {player_hp}"
+                f"\nPotions Remaining: {potions}"
+                f"\n{monster_name} HP: {monster_hp}"
+                f"\n------------------------"
+            )
+
+            if player_hp > 0:
+                what_you_chose = user_choice(room_random)
+                if what_you_chose == "1":
+                    monster_hp -= user_attack(monster_name, monster_hp)
+                    if monster_hp > 0:
+                        player_hp -= monster_attacks(monster_name, monster_damage, player_hp, room_crossed)
+                    elif monster_hp <= 0:
+                        print(f"\n🏆 You won over the {monster_name} 🏆\n")
+                        room_crossed += 1
+                        break
+
+
+                elif what_you_chose == "2":
+                    if potions > 0:
+                        extra_potion_health = random.randint(10, 30)
+                        player_hp = min(100, player_hp + extra_potion_health)
+                        potions -= 1
+                        print(f"🧪 You have gained back {extra_potion_health} HP by using one potion. 🧪\nPotions remaining: {potions}")
+                    else:
+                        print("😨 You have exhausted all potions. 😨")
+
+                elif what_you_chose == "3":
+                    chance_of_escape = random.randint(0, 1)
+                    if chance_of_escape == 0:
+                        print("🏃 You escaped the room successfully! 🏃")
+                        room_crossed += 1
+                        break
+                    elif chance_of_escape == 1:
+                        print(f"💀 You failed to escape the room! 💀\nNow face the wrath of the {monster_name}.")
+                        player_hp -= monster_attacks(monster_name, monster_damage, player_hp, room_crossed)
+
+                elif what_you_chose == "4":
+                    if gold >= 5:
+                        buy_potion = input("You can exchange your 5 gold for 1 Magic Potion.\nType 'yes to complete transaction: ").lower()
+                        if buy_potion == "yes":
+                            gold-=5
+                            potions+=1
+                            print("You have successfully bought 1 potion.")
+                        else:
+                            print("Invalid choice. Go back, dumb human!")
+                    else:
+                        print("You dont have enough gold to facilitate this exchange.\nGo, get some gold.")
+
+            elif player_hp <= 0:
+                player_hp = 0
+                print(f"💀💀💀 You have lost against the {monster_name}! 💀💀💀")
+                break
+
+
+    elif room_random == 3:
+
+        extra_gold = random.randint(10,30)
+        gold+= extra_gold
+        room_crossed += 1
+        print(f"\n🪙 You have entered the Treasure room. 🪙\nYou collected {extra_gold} gold.\n")
+
+
+    elif room_random == 4:
+        extra_hp = random.randint(10,30)
+        player_hp = min(100, player_hp+extra_hp)
+        room_crossed += 1
+        print(f"\n❤️ You have entered the sacred chamber of Magic. ❤️\nYou regain {extra_hp} health points.\n")
+
+
+room_visits = []
+for i in room_visited:
+    room_visits.append(room_list[i])
+
+def result(player_hps):
+    if player_hps <= 0:
+        return "LOST"
+    elif player_hps > 0:
+        return "VICTORY"
+
+print(
+    f"\n========== DUNGEON REPORT ==========\n"
+    f"Rooms completed: {room_crossed-1}/5\n"
+    f"Final health: {player_hp}\n"
+    f"Potions remaining: {potions}\n"
+    f"Gold collected: {gold}\n\n"
+    f"Rooms visited: {room_visits}\n"
+    f"RESULT: {result(player_hp)}!\n")
